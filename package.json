@@ -1,0 +1,22 @@
+{
+  "name": "calculator-project-backend",
+  "version": "1.0.0",
+  "description": "## Pre-requisite",
+  "main": "handler.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lossingalex/calculator-project-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lossingalex/calculator-project-backend/issues"
+  },
+  "homepage": "https://github.com/lossingalex/calculator-project-backend#readme",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
