@@ -19,5 +19,8 @@
   "homepage": "https://github.com/lossingalex/calculator-project-backend#readme",
   "devDependencies": {
     "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "mathjs": "^6.2.2"
   }
 }
