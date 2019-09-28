@@ -26,7 +26,7 @@ deploy:
   # AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION
   provider: script
   script: 
-    - serverless deploy -v
+    - npm run deploy
   skip_cleanup: true
 
 after_success:
@@ -36,4 +36,4 @@ after_success:
   - git config --global user.name "Travis CI"
   - export GIT_TAG=build-$TRAVIS_BRANCH-$(date -u "+%Y-%m-%d-%H-%M-%S")-$TRAVIS_BUILD_NUMBER
   - git tag $GIT_TAG -a -m "tag(travis): Generated tag from TravisCI build $TRAVIS_BUILD_NUMBER"
-  - git push origin $GIT_TAG
+  - git push --tags
