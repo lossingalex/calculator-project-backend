@@ -4,7 +4,8 @@
   "description": "## Pre-requisite",
   "main": "handler.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "deploy": "serverless deploy -v"
   },
   "repository": {
     "type": "git",
