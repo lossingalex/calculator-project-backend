@@ -49,6 +49,8 @@ provider:
 #    variable1: value1
 
 # you can add packaging information here
+package:
+  excludeDevDependencies: false
 #package:
 #  include:
 #    - include-me.js
@@ -64,6 +66,14 @@ functions:
       - http:
           path: hello
           method: get
+  
+  calculate:
+    handler: apis/calculate.main
+    events:
+      - http:
+          path: calculate
+          method: post
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
