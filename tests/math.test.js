@@ -1,8 +1,7 @@
-// import { calculate } from "../libs/math";
 const math = require("../libs/math");
 
 test("math basic", () => {
-  const result = math.calculate("12 / (2.3 + 0.7)");
+  const result = math.calculate("12 / (2.3 + 0.7)----");
   expect(result).toEqual(4);
 });
 
