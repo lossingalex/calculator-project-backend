@@ -24,21 +24,18 @@ provider:
   name: aws
   runtime: nodejs10.x
   environment:
+    REGION: ${self:provider.region}
     DYNAMODB_TABLE_REPORTING: ${self:service}-${opt:stage, self:provider.stage}-reporting
     S3_REPORTING: ${self:service}-${opt:stage, self:provider.stage}-reporting
+
 # you can overwrite defaults here
 #  stage: dev
   region: ap-southeast-1
   iamRoleStatements:
     - Effect: Allow
       Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_REPORTING}"
+        - dynamodb:*
+      Resource: "*"
     - Effect: Allow
       Action:
         - s3:*
@@ -105,7 +102,7 @@ resources:
             AttributeType: S
           -
             AttributeName: date
-            AttributeType: S
+            AttributeType: N
         KeySchema:
           -
             AttributeName: id

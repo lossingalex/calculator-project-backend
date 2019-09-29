@@ -2,40 +2,44 @@
 const math = require("../libs/math");
 const error = require("../libs/error");
 
-module.exports.main = async event => {
+module.exports.main = (event, context, callback) => {
   console.log("==== Event.body", event.body);
   // Validation
   if (!event.body) {
-    return error.errorResponse("BAD_REQUEST", "Missing body request");
+    return callback(null, error.errorResponse("BAD_REQUEST", "Missing body request"));
   }
-  const data = JSON.parse(event.body);
-  console.log(data);
+  const requestBody = JSON.parse(event.body);
 
-  if (!data.formula) {
-    return error.errorResponse("BAD_REQUEST", "Missing field: formula");
-  }
-
-  // Calculate result
-  try {
-    var result = math.calculate(data.formula);
-    console.log("=== Result", result);
-  }
-  catch (e) {
-    return error.errorResponse("BAD_REQUEST", "Invalid formula:" + data.formula);
+  if (!requestBody.formula) {
+    return callback(null, error.errorResponse("BAD_REQUEST", "Missing field: formula"));
   }
 
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-    },
-    body: JSON.stringify(
-      {
-        result,
+  math.calculateAndLogTransaction(requestBody.formula)
+  .then((result) => {
+    console.log("=== Result After calculateAndLogTransaction", result);
+    // Return successfull transaction
+    const response = {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
       },
-      null,
-      2
-    ),
-  };
+      body: JSON.stringify(
+        {
+          result,
+        },
+        null,
+        2
+      ),
+    };
+
+    return callback(null, response);
+  })
+  .catch((e) => {
+    console.log("=== Error After calculateAndLogTransaction", e);
+    const message = "====== Internal server Error while trying to add a transaction for:" + requestBody.formula;
+    // Return error message
+    const response = error.errorResponse("SERVER_ERROR", message);
+    return callback(null, response);
+  })
 };
