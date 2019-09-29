@@ -1,0 +1,176 @@
+swagger: '2.0'
+info:
+  description: Calculator Project APIs
+  version: 1.0.0
+  title: Calculator Project APIs
+  contact:
+    email: lossing.alex@gmail.com
+
+# host: vqe3fh8pt7.execute-api.ap-southeast-1.amazonaws.com
+# basePath: /dev/
+
+# tags are used for organizing operations
+tags:
+- name: calculate
+  description: Calculator APIs
+- name: reporting
+  description: Reporing APIs
+
+paths:
+  /calculate:
+    post:
+      tags:
+      - calculate
+      summary: Calculate te result of input formula
+      description: |
+        Calculate te result of input formula.
+        Any formula formatted following for mathjs can be used. 
+        (https://mathjs.org/examples/expressions.js.html)
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: calculateRequest
+        description: Any formula formatted following for mathjs can be used. (https://mathjs.org/examples/expressions.js.html)
+        schema:
+          $ref: '#/definitions/calculateRequest'
+      responses:
+        200:
+          description: Calculation result
+          schema:
+            $ref: '#/definitions/calculateResponse'
+        400:
+          description: Bad request - Missing parameters or invalid formula
+  /report/daily:
+    post:
+      tags:
+      - reporting
+      summary: Get all formula requests for a full day.
+      description: |
+        Send back the calculation done during the full day from 00AM to midnight of the input date.
+        Full day report is based on UTC time.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: reportRequest
+        description: Date for the report
+        schema:
+          $ref: '#/definitions/reportRequest'
+      responses:
+        200:
+          description: List of formulas calculated
+          schema:
+            $ref: '#/definitions/historyCalculations'
+        400:
+          description: Bad request - Missing parameters
+  /report/weekly:
+    post:
+      tags:
+      - reporting
+      summary: Get all formula requests for a full week.
+      description: |
+        Send back the calculation done during the full week from Monday to Sunday of the input date.
+        Full week report is based on UTC time.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: reportRequest
+        description: Date for the report
+        schema:
+          $ref: '#/definitions/reportRequest'
+      responses:
+        200:
+          description: List of formulas calculated
+          schema:
+            $ref: '#/definitions/historyCalculations'
+        400:
+          description: Bad request - Missing parameters
+  /report/monthly:
+    post:
+      tags:
+      - reporting
+      summary: Get all formula requests for a full month.
+      description: |
+        Send back the calculation done during the full month from 1st to 31st of the input date.
+        Full Month report is based on UTC time.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: reportRequest
+        description: Date for the report
+        schema:
+          $ref: '#/definitions/reportRequest'
+      responses:
+        200:
+          description: List of formulas calculated
+          schema:
+            $ref: '#/definitions/historyCalculations'
+        400:
+          description: Bad request - Missing parameters
+
+definitions:
+  calculateRequest:
+    type: object
+    required:
+    - formula
+    properties:
+      formula:
+        type: string
+        example: "21 / (2.3 + 0.7)"
+  calculateResponse:
+    type: object
+    properties:
+      result:
+        type: string
+        example: "7"
+  reportRequest:
+    type: object
+    required:
+    - date
+    properties:
+      date:
+        type: string
+        example: "2019-09-29"
+  historyCalculations:
+    type: object
+    properties:
+      result:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "0463424e-1925-49a6-84ee-4f0a81266867"
+            formula:
+              type: string
+              example: "30 / (2.3 + 0.7)"
+            result:
+              type: integer
+              example: 10
+            dateFormatted:
+              type: string
+              example: "2019-09-29T13:31:14.388Z"
+            timestamp:
+              type: integer
+              example: 1569763874388
+            type:
+              type: string
+              example: "CALCUL"
+
+# Added by API Auto Mocking Plugin
+schemes:
+ - https
+host: virtserver.swaggerhub.com
+basePath: /lossingalex/calculator-project/1.0.0
