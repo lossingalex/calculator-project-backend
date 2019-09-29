@@ -1,6 +1,7 @@
 
 const uuidv4 = require('uuid/v4');
 const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
+const dateUtil = require('./date');
 
 const docClient = new AWS.DynamoDB.DocumentClient({ region: process.env.REGION });
 
@@ -60,6 +61,7 @@ function getAllTransactionByDate(type, startTime, endTime) {
         };
         console.log('AWS docClient PARAMS', params);
   
+        // TODO paginagation
         docClient.query(params, (error, data) => {
             console.log("=== getAllTransactionByDate result", error, data);
             
@@ -76,10 +78,16 @@ function getAllTransactionByDate(type, startTime, endTime) {
 }
 exports.getAllTransactionByDate = getAllTransactionByDate;
 
-function getPreviousDayTransactions() {
-    const start = new Date().getTime() - (1000*60*60*24);
-    const end = new Date().getTime();
-    return getAllTransactionByDate("CALCUL", start, end)
+/**
+ * 
+ * @param {*} date "2019-09-28"
+ */
+function getRangeTransactions(date, range) {
+    // const start = new Date().getTime() - (1000*60*60*24);
+    // const end = new Date().getTime();
+    const startEndTimestamp = dateUtil.startEndTimestamp(date, range);
+
+    return getAllTransactionByDate("CALCUL", startEndTimestamp.start, startEndTimestamp.end)
     .then((data) => {
         console.log("=== Result After getAllTransactionByDate", data);
     })
@@ -87,8 +95,23 @@ function getPreviousDayTransactions() {
         console.log("=== Error After getAllTransactionByDate", e);
     });
 }
-exports.getPreviousDayTransactions = getPreviousDayTransactions;
+exports.getRangeTransactions = getRangeTransactions;
 
+function getFullDayTransactions(date) {
+    return getRangeTransactions(date, 'day');
+}
+exports.getFullDayTransactions = getFullDayTransactions;
+
+function getFullWeekTransactions(date) {
+    return getRangeTransactions(date, 'week');
+}
+
+exports.getFullWeekTransactions = getFullWeekTransactions;
+
+function getFullMonthTransactions(date) {
+    return getRangeTransactions(date, 'month');
+}
+exports.getFullMonthTransactions = getFullMonthTransactions;
 
 
 // FOR Local testing
@@ -103,6 +126,14 @@ exports.getPreviousDayTransactions = getPreviousDayTransactions;
 // });
 
 // getAllTransactionByDate("CALCUL", new Date().getTime() - (1000*60*60*24), new Date().getTime())
+// .then((data) => {
+//     console.log("=== Result After getAllTransactionByDate", data);
+// })
+// .catch((e) => {
+//     console.log("=== Error After getAllTransactionByDate", e);
+// });
+
+// getFullDayTransactions("2019-09-29")
 // .then((data) => {
 //     console.log("=== Result After getAllTransactionByDate", data);
 // })
