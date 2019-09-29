@@ -1,0 +1,531 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Calculator Project APIs</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>Calculator Project APIs</h1>
+    <div class="app-desc">Calculator Project APIs</div>
+    <div class="app-desc">More information: <a href="https://helloreverb.com">https://helloreverb.com</a></div>
+    <div class="app-desc">Contact Info: <a href="lossing.alex@gmail.com">lossing.alex@gmail.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/lossingalex/calculator-project/1.0.0</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Calculate">Calculate</a></h4>
+  <ul>
+  <li><a href="#calculatePost"><code><span class="http-method">post</span> /calculate</code></a></li>
+  </ul>
+  <h4><a href="#Reporting">Reporting</a></h4>
+  <ul>
+  <li><a href="#reportDailyPost"><code><span class="http-method">post</span> /report/daily</code></a></li>
+  <li><a href="#reportMonthlyPost"><code><span class="http-method">post</span> /report/monthly</code></a></li>
+  <li><a href="#reportWeeklyPost"><code><span class="http-method">post</span> /report/weekly</code></a></li>
+  </ul>
+
+  <h1><a name="Calculate">Calculate</a></h1>
+  <div class="method"><a name="calculatePost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /calculate</code></pre></div>
+    <div class="method-summary">Calculate te result of input formula (<span class="nickname">calculatePost</span>)</div>
+    <div class="method-notes">Calculate te result of input formula.
+Any formula formatted following for mathjs can be used.
+(https://mathjs.org/examples/expressions.js.html)</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">calculateRequest <a href="#calculateRequest">calculateRequest</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Any formula formatted following for mathjs can be used. (https://mathjs.org/examples/expressions.js.html) </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#calculateResponse">calculateResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "result" : "7"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Calculation result
+        <a href="#calculateResponse">calculateResponse</a>
+    <h4 class="field-label">400</h4>
+    Bad request - Missing parameters or invalid formula
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Reporting">Reporting</a></h1>
+  <div class="method"><a name="reportDailyPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /report/daily</code></pre></div>
+    <div class="method-summary">Get all formula requests for a full day. (<span class="nickname">reportDailyPost</span>)</div>
+    <div class="method-notes">Send back the calculation done during the full day from 00AM to midnight of the input date.
+Full day report is based on UTC time.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">reportRequest <a href="#reportRequest">reportRequest</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Date for the report </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#historyCalculations">historyCalculations</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "result" : [ {
+    "result" : 10,
+    "formula" : "30 / (2.3 + 0.7)",
+    "id" : "0463424e-1925-49a6-84ee-4f0a81266867",
+    "dateFormatted" : "2019-09-29T13:31:14.388Z",
+    "type" : "CALCUL",
+    "timestamp" : 1569763874388
+  }, {
+    "result" : 10,
+    "formula" : "30 / (2.3 + 0.7)",
+    "id" : "0463424e-1925-49a6-84ee-4f0a81266867",
+    "dateFormatted" : "2019-09-29T13:31:14.388Z",
+    "type" : "CALCUL",
+    "timestamp" : 1569763874388
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    List of formulas calculated
+        <a href="#historyCalculations">historyCalculations</a>
+    <h4 class="field-label">400</h4>
+    Bad request - Missing parameters
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="reportMonthlyPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /report/monthly</code></pre></div>
+    <div class="method-summary">Get all formula requests for a full month. (<span class="nickname">reportMonthlyPost</span>)</div>
+    <div class="method-notes">Send back the calculation done during the full month from 1st to 31st of the input date.
+Full Month report is based on UTC time.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">reportRequest <a href="#reportRequest">reportRequest</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Date for the report </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#historyCalculations">historyCalculations</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "result" : [ {
+    "result" : 10,
+    "formula" : "30 / (2.3 + 0.7)",
+    "id" : "0463424e-1925-49a6-84ee-4f0a81266867",
+    "dateFormatted" : "2019-09-29T13:31:14.388Z",
+    "type" : "CALCUL",
+    "timestamp" : 1569763874388
+  }, {
+    "result" : 10,
+    "formula" : "30 / (2.3 + 0.7)",
+    "id" : "0463424e-1925-49a6-84ee-4f0a81266867",
+    "dateFormatted" : "2019-09-29T13:31:14.388Z",
+    "type" : "CALCUL",
+    "timestamp" : 1569763874388
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    List of formulas calculated
+        <a href="#historyCalculations">historyCalculations</a>
+    <h4 class="field-label">400</h4>
+    Bad request - Missing parameters
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="reportWeeklyPost"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /report/weekly</code></pre></div>
+    <div class="method-summary">Get all formula requests for a full week. (<span class="nickname">reportWeeklyPost</span>)</div>
+    <div class="method-notes">Send back the calculation done during the full week from Monday to Sunday of the input date.
+Full week report is based on UTC time.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">reportRequest <a href="#reportRequest">reportRequest</a> (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash; Date for the report </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#historyCalculations">historyCalculations</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "result" : [ {
+    "result" : 10,
+    "formula" : "30 / (2.3 + 0.7)",
+    "id" : "0463424e-1925-49a6-84ee-4f0a81266867",
+    "dateFormatted" : "2019-09-29T13:31:14.388Z",
+    "type" : "CALCUL",
+    "timestamp" : 1569763874388
+  }, {
+    "result" : 10,
+    "formula" : "30 / (2.3 + 0.7)",
+    "id" : "0463424e-1925-49a6-84ee-4f0a81266867",
+    "dateFormatted" : "2019-09-29T13:31:14.388Z",
+    "type" : "CALCUL",
+    "timestamp" : 1569763874388
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    List of formulas calculated
+        <a href="#historyCalculations">historyCalculations</a>
+    <h4 class="field-label">400</h4>
+    Bad request - Missing parameters
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#calculateRequest"><code>calculateRequest</code> - </a></li>
+    <li><a href="#calculateResponse"><code>calculateResponse</code> - </a></li>
+    <li><a href="#historyCalculations"><code>historyCalculations</code> - </a></li>
+    <li><a href="#historyCalculations_result"><code>historyCalculations_result</code> - </a></li>
+    <li><a href="#reportRequest"><code>reportRequest</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="calculateRequest"><code>calculateRequest</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">formula </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="calculateResponse"><code>calculateResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">result (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="historyCalculations"><code>historyCalculations</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">result (optional)</div><div class="param-desc"><span class="param-type"><a href="#historyCalculations_result">array[historyCalculations_result]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="historyCalculations_result"><code>historyCalculations_result</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">formula (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">result (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">dateFormatted (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">timestamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+<div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="reportRequest"><code>reportRequest</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">date </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

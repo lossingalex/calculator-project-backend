@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "35648511-f098-4cfb-b217-c5682bc65dbd",
+		"name": "calculator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "calculate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"formula\": \"21 / (2.3 + 0.7)\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vqe3fh8pt7.execute-api.ap-southeast-1.amazonaws.com/dev/calculate",
+					"protocol": "https",
+					"host": [
+						"vqe3fh8pt7",
+						"execute-api",
+						"ap-southeast-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"calculate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Daily reporting",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\":\"2019-09-29\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vqe3fh8pt7.execute-api.ap-southeast-1.amazonaws.com/dev/report/daily",
+					"protocol": "https",
+					"host": [
+						"vqe3fh8pt7",
+						"execute-api",
+						"ap-southeast-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"report",
+						"daily"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Weekly reporting",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\":\"2019-09-29\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vqe3fh8pt7.execute-api.ap-southeast-1.amazonaws.com/dev/report/weekly",
+					"protocol": "https",
+					"host": [
+						"vqe3fh8pt7",
+						"execute-api",
+						"ap-southeast-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"report",
+						"weekly"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Monthly reporting",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"date\":\"2019-09-29\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vqe3fh8pt7.execute-api.ap-southeast-1.amazonaws.com/dev/report/monthly",
+					"protocol": "https",
+					"host": [
+						"vqe3fh8pt7",
+						"execute-api",
+						"ap-southeast-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"report",
+						"monthly"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
