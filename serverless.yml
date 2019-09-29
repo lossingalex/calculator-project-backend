@@ -66,6 +66,16 @@ functions:
       - http:
           path: calculate
           method: post
+          cors:
+            origin: 'http://localhost:3000, http://calculator-project.s3-website-ap-southeast-1.amazonaws.com'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
 
   # hello:
   #   handler: handler.hello
