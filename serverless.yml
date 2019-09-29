@@ -23,10 +23,21 @@ service: calculator-project
 provider:
   name: aws
   runtime: nodejs10.x
-
+  environment:
+    DYNAMODB_TABLE_REPORTING: ${self:service}-${opt:stage, self:provider.stage}-reporting
 # you can overwrite defaults here
 #  stage: dev
   region: ap-southeast-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE_REPORTING}"
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -77,6 +88,66 @@ functions:
               - X-Amz-User-Agent
             allowCredentials: false
 
+
+resources:
+  Resources:
+    ReportingDynamoDbTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+          -
+            AttributeName: date
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: '1'
+          WriteCapacityUnits: '2'
+        TableName: ${self:provider.environment.DYNAMODB_TABLE_REPORTING}
+        GlobalSecondaryIndexes:
+        - IndexName: reporting-by-date
+          KeySchema:
+          - AttributeName: date
+            KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: '2'
+            WriteCapacityUnits: '1'
+
+# resources:
+#   Resources:
+#     ReportingDynamoDbTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       DeletionPolicy: Retain
+#       Properties:
+#         AttributeDefinitions:
+#           -
+#             AttributeName: id
+#             AttributeType: S
+#           -
+#             AttributeName: date
+#             AttributeType: S
+#           -
+#             AttributeName: formula
+#             AttributeType: S
+#           -
+#             AttributeName: result
+#             AttributeType: S
+#         KeySchema:
+#           -
+#             AttributeName: id
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#         TableName: ${self:provider.environment.DYNAMODB_TABLE_REPORTING}
+            
   # hello:
   #   handler: handler.hello
   #   events:
@@ -134,3 +205,5 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+
