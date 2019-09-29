@@ -1,5 +1,7 @@
 # calculator-project-backend
 
+This project is done as part of an exercise.
+
 ## Documentation
 
 ### APIs
