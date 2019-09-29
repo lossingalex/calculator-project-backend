@@ -90,8 +90,56 @@ functions:
               - X-Amz-Security-Token
               - X-Amz-User-Agent
             allowCredentials: false
-  dailyReport:
-    handler: jobs/dailyReportGeneration.main
+  getDailyReport:
+    handler: apis/report.daily
+    events:
+      - http:
+          path: report/daily
+          method: post
+          cors:
+            origin: 'http://localhost:3000, http://calculator-project.s3-website-ap-southeast-1.amazonaws.com'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+  getWeeklyReport:
+    handler: apis/report.weekly
+    events:
+      - http:
+          path: report/weekly
+          method: post
+          cors:
+            origin: 'http://localhost:3000, http://calculator-project.s3-website-ap-southeast-1.amazonaws.com'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+  getMonthlyReport:
+    handler: apis/report.monthly
+    events:
+      - http:
+          path: report/monthly
+          method: post
+          cors:
+            origin: 'http://localhost:3000, http://calculator-project.s3-website-ap-southeast-1.amazonaws.com'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+  # dailyReport:
+  #   handler: jobs/dailyReportGeneration.main
     # events:
     #   - schedule: cron(0 2 * * *)
 

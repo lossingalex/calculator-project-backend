@@ -83,17 +83,8 @@ exports.getAllTransactionByDate = getAllTransactionByDate;
  * @param {*} date "2019-09-28"
  */
 function getRangeTransactions(date, range) {
-    // const start = new Date().getTime() - (1000*60*60*24);
-    // const end = new Date().getTime();
     const startEndTimestamp = dateUtil.startEndTimestamp(date, range);
-
     return getAllTransactionByDate("CALCUL", startEndTimestamp.start, startEndTimestamp.end)
-    .then((data) => {
-        console.log("=== Result After getAllTransactionByDate", data);
-    })
-    .catch((e) => {
-        console.log("=== Error After getAllTransactionByDate", e);
-    });
 }
 exports.getRangeTransactions = getRangeTransactions;
 
