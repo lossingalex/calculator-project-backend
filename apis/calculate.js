@@ -35,11 +35,11 @@ module.exports.main = (event, context, callback) => {
 
     return callback(null, response);
   })
-  .catch((e) => {
-    console.log("=== Error After calculateAndLogTransaction", e);
-    const message = "====== Internal server Error while trying to add a transaction for:" + requestBody.formula;
-    // Return error message
-    const response = error.errorResponse("SERVER_ERROR", message);
+  .catch((message) => {
+    console.log("=== Error After calculateAndLogTransaction", message);
+    // const message = "====== Internal server Error while trying to add a transaction for:" + requestBody.formula;
+    // // Return error message
+    const response = error.errorResponse("BAD_REQUEST", message);
     return callback(null, response);
   })
 };

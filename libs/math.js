@@ -23,7 +23,7 @@ exports.calculateAndLogTransaction = formula => {
 
         console.log("=== START Transaction Log");
         // Async call to reporting
-        return reporting.addTransaction(formula, result)
+        return reporting.addTransaction(formula, result, 'CALCUL')
         .then((data) => {
             console.log("=== Result After Transaction Log", data);
             // Return successfull transaction
