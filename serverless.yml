@@ -26,6 +26,7 @@ provider:
   environment:
     REGION: ${self:provider.region}
     DYNAMODB_TABLE_REPORTING: ${self:service}-${opt:stage, self:provider.stage}-reporting
+    DYNAMODB_TABLE_REPORTING_SEC_INDEX: reporting-by-date
     S3_REPORTING: ${self:service}-${opt:stage, self:provider.stage}-reporting
 
 # you can overwrite defaults here
@@ -89,6 +90,10 @@ functions:
               - X-Amz-Security-Token
               - X-Amz-User-Agent
             allowCredentials: false
+  dailyReport:
+    handler: jobs/dailyReportGeneration.main
+    # events:
+    #   - schedule: cron(0 2 * * *)
 
 
 resources:
@@ -101,7 +106,10 @@ resources:
             AttributeName: id
             AttributeType: S
           -
-            AttributeName: date
+            AttributeName: type
+            AttributeType: S
+          -
+            AttributeName: timestamp
             AttributeType: N
         KeySchema:
           -
@@ -112,10 +120,12 @@ resources:
           WriteCapacityUnits: '2'
         TableName: ${self:provider.environment.DYNAMODB_TABLE_REPORTING}
         GlobalSecondaryIndexes:
-        - IndexName: reporting-by-date
+        - IndexName: ${self:provider.environment.DYNAMODB_TABLE_REPORTING_SEC_INDEX}
           KeySchema:
-          - AttributeName: date
+          - AttributeName: type
             KeyType: HASH
+          - AttributeName: timestamp
+            KeyType: RANGE
           Projection:
             ProjectionType: ALL
           ProvisionedThroughput:

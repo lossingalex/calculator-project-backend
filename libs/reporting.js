@@ -5,7 +5,7 @@ const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-depe
 const docClient = new AWS.DynamoDB.DocumentClient({ region: process.env.REGION });
 
 // Async call
-function addTransaction(formula, result) {
+function addTransaction(formula, result, type) {
   console.log("=== START addTransaction");
   return new Promise((resolve, reject) => {
     // Add todo in
@@ -13,22 +13,22 @@ function addTransaction(formula, result) {
         TableName: process.env.DYNAMODB_TABLE_REPORTING,
         Item: {
         id: uuidv4(),
+        type,
         formula,
         result,
-        date: new Date().getTime(),
+        timestamp: new Date().getTime(),
         dateFormatted: new Date().toISOString()
         },
     };
     console.log('AWS docClient PARAMS', params);
 
     docClient.put(params, (error, data) => {
-        console.log("=== Transaction DB return");
-        console.log("=== Transaction result", error, data);
+        console.log("=== Add Transaction in Reporting DB result", error, data);
         
         // Handle AWS error
         if (error) {
             // TODO Decide what to do in case of failure + sent notification
-            console.log("=== Error while trying to write in Transaction in DB", params, error);
+            console.log("=== Error while trying to add Transaction in Reporting in DB", params, error);
             reject(error);
         }
         // Success
@@ -38,13 +38,74 @@ function addTransaction(formula, result) {
 }
 exports.addTransaction = addTransaction;
 
+
+function getAllTransactionByDate(type, startTime, endTime) {
+    console.log("=== START getAllTransactionByDate");
+    return new Promise((resolve, reject) => {
+        const params = {
+            TableName: process.env.DYNAMODB_TABLE_REPORTING,
+            IndexName: process.env.DYNAMODB_TABLE_REPORTING_SEC_INDEX,
+            KeyConditionExpression: "#type = :type AND #timestamp BETWEEN :timestampStart AND :timestampEnd",
+            ExpressionAttributeNames: { 
+                "#type": "type",
+                "#timestamp": "timestamp"
+            },
+            ExpressionAttributeValues: {
+                ":type": type,
+                ":timestampStart": startTime,
+                ":timestampEnd": endTime
+            }
+            // ,
+            // ProjectionExpression: "Artist, SongTitle, Price"
+        };
+        console.log('AWS docClient PARAMS', params);
+  
+        docClient.query(params, (error, data) => {
+            console.log("=== getAllTransactionByDate result", error, data);
+            
+            // Handle AWS error
+            if (error) {
+                // TODO Decide what to do in case of failure + sent notification
+                console.log("=== Error while trying to getAllTransactionByDate in Reporting in DB", params, error);
+                reject(error);
+            }
+            // Success
+            resolve(data.Items);
+        });
+    })
+}
+exports.getAllTransactionByDate = getAllTransactionByDate;
+
+function getPreviousDayTransactions() {
+    const start = new Date().getTime() - (1000*60*60*24);
+    const end = new Date().getTime();
+    return getAllTransactionByDate("CALCUL", start, end)
+    .then((data) => {
+        console.log("=== Result After getAllTransactionByDate", data);
+    })
+    .catch((e) => {
+        console.log("=== Error After getAllTransactionByDate", e);
+    });
+}
+exports.getPreviousDayTransactions = getPreviousDayTransactions;
+
+
+
 // FOR Local testing
-// DYNAMODB_TABLE_REPORTING=calculator-project-dev-reporting REGION=ap-southeast-1 node libs/reporting.js
-// addTransaction("1+1", "2")
+// DYNAMODB_TABLE_REPORTING=calculator-project-dev-reporting DYNAMODB_TABLE_REPORTING_SEC_INDEX=reporting-by-date REGION=ap-southeast-1 node libs/reporting.js
+
+// addTransaction("1+1", "2", "CALCUL")
 // .then((data) => {
 //     console.log("=== Result After Transaction", data);
-//     // Return successfull transaction
 // })
 // .catch((e) => {
 //     console.log("=== Error After Transaction", e);
+// });
+
+// getAllTransactionByDate("CALCUL", new Date().getTime() - (1000*60*60*24), new Date().getTime())
+// .then((data) => {
+//     console.log("=== Result After getAllTransactionByDate", data);
+// })
+// .catch((e) => {
+//     console.log("=== Error After getAllTransactionByDate", e);
 // });
