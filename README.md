@@ -13,8 +13,6 @@
 - APIs Specification in Swagger: https://app.swaggerhub.com/apis-docs/lossingalex/calculator-project/1.0.0#/
 - Postman: [documentation/calculator.postman_collection.json](./documentation/calculator.postman_collection.json)
 
-
 ### How to run
 
 - [documentation/how-to-run.md](./documentation/how-to-run.md)
-
